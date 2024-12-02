@@ -1,27 +1,33 @@
 # Gerador-de-senhas# Gerador de Senhas
+import random
+import string
 
-## Objetivos do Projeto
-Este projeto tem como objetivo desenvolver um gerador de senhas personalizáveis para ajudar os usuários a criarem senhas seguras de maneira prática e eficiente.
+def gerar_senha(comprimento=12, incluir_maiusculas=True, incluir_numeros=True, incluir_simbolos=True):
+    # Definindo os caracteres básicos
+    caracteres = string.ascii_lowercase  # Letras minúsculas
+    
+    if incluir_maiusculas:
+        caracteres += string.ascii_uppercase  # Adiciona letras maiúsculas
+    if incluir_numeros:
+        caracteres += string.digits  # Adiciona números
+    if incluir_simbolos:
+        caracteres += string.punctuation  # Adiciona símbolos
 
-## Funcionalidades
-- Gerar senhas com comprimento personalizado.
-- Incluir ou excluir:
-  - Letras maiúsculas.
-  - Números.
-  - Símbolos especiais.
-- Interface simples e interativa no terminal.
+    # Gera a senha
+    senha = ''.join(random.choice(caracteres) for _ in range(comprimento))
+    return senha
 
-## Cronograma de Desenvolvimento
-| Etapa                 | Descrição                            | Prazo       |
-|-----------------------|--------------------------------------|-------------|
-| Configuração Inicial  | Criar repositório e configurar Git  | 1º dia      |
-| Implementação Básica  | Gerar senhas com letras minúsculas  | 2º dia      |
-| Funcionalidades Extras| Adicionar opções de personalização  | 3º dia      |
-| Testes e Validação    | Garantir o funcionamento correto    | 4º dia      |
-| Documentação Final    | Completar README e comentários       | 5º dia      |
+# Interação com o usuário
+def main():
+    print("Gerador de Senhas")
+    comprimento = int(input("Digite o comprimento da senha (padrão 12): ") or 12)
+    
+    incluir_maiusculas = input("Incluir letras maiúsculas? (s/n): ").lower() == 's'
+    incluir_numeros = input("Incluir números? (s/n): ").lower() == 's'
+    incluir_simbolos = input("Incluir símbolos? (s/n): ").lower() == 's'
 
-## Como Executar
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/SEU_USUARIO/gerador-senhas.git
+    senha = gerar_senha(comprimento, incluir_maiusculas, incluir_numeros, incluir_simbolos)
+    print(f"Sua senha gerada é: {senha}")
 
+if __name__ == "__main__":
+    main()
